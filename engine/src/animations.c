@@ -10,14 +10,14 @@ void _increment_frame(RuntimeAnimation *anim)
     anim->current_frame++;
     if (anim->current_frame >= anim->animation_data->frame_count)
     {
-        if (!(anim->flags & RT_ANIM_FLAG_LOOPING) && !(anim->flags & RT_ANIM_FLAG_FINISHED))
-        {
-            anim->flags |= RT_ANIM_FLAG_FINISHED;
-            return;
-        }
-        
+        if (!(anim->flags & RT_ANIM_FLAG_FINISHED)) anim->flags |= RT_ANIM_FLAG_FINISHED;
+        if (!(anim->flags & RT_ANIM_FLAG_LOOPING)) return;
+
         anim->current_frame = 0;
+        return;
     }
+
+    anim->flags &= ~RT_ANIM_FLAG_FINISHED;
 }
 
 void _decrement_frame(RuntimeAnimation* anim)
@@ -64,10 +64,6 @@ void anims_destroy_animation(RuntimeAnimation *animation)
     animation->flags = 0;
 }
 
-void anims_set_anim_clean(AniamtionData *anim)
-{
-    anim->flags &= ~RT_ANIM_FLAG_DIRTY;
-}
 void anims_update()
 {
     for (uint8_t i = 0; i < MAX_RUNTIME_ANIMATIONS; i++)

@@ -69,7 +69,6 @@ void state_0_init()
 
     text_init(2, 1, 25, 15);
     text_load_font(ds_fontTiles, ds_fontTilesLen >> 1);
-
     
     _start_enemy_spawn_timer();
 
