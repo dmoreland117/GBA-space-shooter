@@ -4,15 +4,12 @@
 #include "engine/animation/animations.h"
 
 
-EntityData* _entities_ptr;
-
 EWRAM_BSS RuntimeEntity _runtime_entities_pool[MAX_LOADED_ENTITIES];
 EWRAM_BSS EntityVTable  _runtime_vtable_pool[MAX_LOADED_ENTITIES];
 
-void entities_init(EntityData *entities)
+void entities_init()
 {
     REG_DISPCNT |= ENABLE_OBJS | SPRITES_LINEAR_ARRAY;
-    _entities_ptr = entities;
 }
 
 RuntimeEntity *entities_create_entity(EntityData* entity, Vec2_uint16 *pos)

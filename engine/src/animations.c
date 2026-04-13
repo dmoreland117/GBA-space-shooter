@@ -10,7 +10,11 @@ void _increment_frame(RuntimeAnimation *anim)
     anim->current_frame++;
     if (anim->current_frame >= anim->animation_data->frame_count)
     {
-        if (!(anim->flags & RT_ANIM_FLAG_LOOPING)) return;
+        if (!(anim->flags & RT_ANIM_FLAG_LOOPING) && !(anim->flags & RT_ANIM_FLAG_FINISHED))
+        {
+            anim->flags |= RT_ANIM_FLAG_FINISHED;
+            return;
+        }
         
         anim->current_frame = 0;
     }

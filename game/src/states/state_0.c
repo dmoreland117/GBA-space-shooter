@@ -57,8 +57,7 @@ void state_0_init()
 {
     REG_DISPCNT = 0;
     bg_init(0, 0, 24, 3, false);
-    entities_init(ENTITIES_TABLE_START);
-    
+
     pal_load_sprite_data(spritesheetPal, spritesheetPalLen >> 1, 0);
     pal_load_bg_data(spacePal, 16, 0);
     pal_load_bg_data_slot(15, FNT_PAL, 2);
@@ -73,6 +72,8 @@ void state_0_init()
 
     
     _start_enemy_spawn_timer();
+
+    entities_init();
 
     RuntimeEntity* e = entities_create_entity(&PLAYER_ENTITY, &(Vec2_uint16){0, 0});
     entities_create_entity(&ENEMY_ENTITY, &(Vec2_uint16){20, 20});
