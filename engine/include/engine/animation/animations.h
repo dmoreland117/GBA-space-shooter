@@ -13,7 +13,7 @@ void anims_init(AniamtionData* animations);
 /// @param sprite A pointer to the OAM Attribute to use for this animation
 /// @return A pointer to the in memory animation data
 RuntimeAnimation* anims_create_animation(AniamtionData* anim, OAMSprite* sprite);
-void              destroy_animation(RuntimeAnimation* animation);
+void              anims_destroy_animation(RuntimeAnimation* animation);
 
 void anims_set_anim_clean(AniamtionData* anim);
 

@@ -7,7 +7,7 @@ bool input_is_key_pressed(uint16_t key);
 bool input_is_key_just_pressed(uint16_t key);
 bool input_is_key_released(uint16_t key);
 
-uint16_t get_keys();
+uint16_t input_get_keys();
 
 void input_update();
 

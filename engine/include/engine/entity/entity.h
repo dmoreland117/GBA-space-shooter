@@ -21,9 +21,9 @@ typedef struct EntityVTable
 typedef struct EntityData
 {
     EntityVTable* vtable;
-    uint32_t      data;     // custom data usally defined through macros.
-    Vec2_uint8    size;
-    uint16_t      id;
+    uint32_t      data;     // custom data and flags usally defined through macros.
+    Vec2_uint8    size;     // size used for collisions
+    uint16_t      id;       // custom id for later reference
     uint16_t      start_animation_id;
 } EntityData;
 

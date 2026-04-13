@@ -59,7 +59,7 @@ void entities_free_entity(RuntimeEntity* entity)
     entity->velocity.x = 0;
     entity->velocity.y = 0;
 
-    destroy_animation(entity->animation);
+    anims_destroy_animation(entity->animation);
     spr_clear_sprite(entity->oam_attribs);
     entity->animation = nullptr;
     entity->oam_attribs = nullptr;

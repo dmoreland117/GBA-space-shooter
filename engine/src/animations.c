@@ -55,7 +55,7 @@ RuntimeAnimation *anims_create_animation(AniamtionData* animation, OAMSprite* sp
 
     return nullptr;
 }
-void destroy_animation(RuntimeAnimation *animation)
+void anims_destroy_animation(RuntimeAnimation *animation)
 {
     animation->flags = 0;
 }

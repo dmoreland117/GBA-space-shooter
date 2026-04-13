@@ -19,7 +19,7 @@ bool input_is_key_released(uint16_t key)
     return (_last_keys & key) &! (_current_keys & key);
 }
 
-uint16_t get_keys()
+uint16_t input_get_keys()
 {
     return _current_keys;
 }
