@@ -20,8 +20,10 @@ static inline void wait_vblank(void)
 
 void set_current_state(State *state) 
 {
-    _current_state->destroy_callback();
-    _current_state = state;
+    if (_current_state)
+        _current_state->destroy_callback();
+    
+        _current_state = state;
     state->init_callback();
 }
 void states_loop()
