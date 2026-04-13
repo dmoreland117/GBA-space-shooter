@@ -6,7 +6,7 @@
 
 #define MAX_LOADED_ENTITIES 64
 
-void entities_init(EntityData* entities);
+//void entities_init(EntityData* entities);
 
 RuntimeEntity* entities_create_entity(EntityData* entity, Vec2_uint16* pos);
 void           entities_free_entity(RuntimeEntity* entity);
