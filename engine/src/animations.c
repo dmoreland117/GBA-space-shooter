@@ -20,11 +20,6 @@ void _increment_frame(RuntimeAnimation *anim)
     anim->flags &= ~RT_ANIM_FLAG_FINISHED;
 }
 
-void _decrement_frame(RuntimeAnimation* anim)
-{
-    
-}
-
 void anims_init(AniamtionData *animations)
 {
     _animations_ptr = animations;
@@ -109,4 +104,21 @@ void anims_draw()
 
         current_anim->flags &= ~RT_ANIM_FLAG_DIRTY;
     }
+}
+void anims_reset_anim(RuntimeAnimation *anim)
+{
+    anim->current_frame = 0;
+    anim->current_frame_timer = 0;
+    anim->flags &= ~RT_ANIM_FLAG_FINISHED;
+    anim->flags |= RT_ANIM_FLAG_DIRTY;
+}
+
+void anims_set_anim_data(RuntimeAnimation *anim, AniamtionData *data)
+{
+    anim->animation_data = data;
+
+    anim->current_frame = 0;
+    anim->current_frame_timer = 0;
+    anim->flags &= ~RT_ANIM_FLAG_FINISHED;
+    anim->flags |= RT_ANIM_FLAG_DIRTY;
 }
