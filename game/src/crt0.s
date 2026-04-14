@@ -1,6 +1,5 @@
     .section .text
     .global _start
-    .global sqrt
     .arm
 
 /* GBA ROM entry */

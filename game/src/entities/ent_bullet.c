@@ -30,6 +30,7 @@ const AniamtionData BULLET_LAZER_ANIMATION = {
     .flags = ANIM_FLAG_LOOP_ON_CREATE | ANIM_FLAG_PLAY_ON_CREATE
 };
 
+
 const EntityVTable BULLET_VTABLE = {
     .init_callback    = bullet_init,
     .update_callback  = bullet_update,
@@ -43,7 +44,7 @@ ENTITIES_TABLE EntityData BULLET_ENTITY = {
     .start_animation_id = 1,
     .vtable             = &BULLET_VTABLE,
     .size               = {8, 8},
-    .data               = BULLET_DATA(24, 120)
+    .data               = BULLET_DATA(BULLET_TYPE_LAZER, 24, 120)
 };
 
 void bullet_init(RuntimeEntity* this)
@@ -58,12 +59,14 @@ void bullet_init(RuntimeEntity* this)
     sp.x = FROM_FIX(this->screen_position.x);
     sp.y = FROM_FIX(this->screen_position.y);
     
-    this->oam_attribs = spr_init_sprite(11, 0, &sp, OAM_SPR_SIZE_8x8);
-    this->animation = anims_create_animation(&BULLET_LAZER_ANIMATION, this->oam_attribs);
-
+    
     BulletVars* vars = (BulletVars*)this->data;
     vars->damage = BULLET_DATA_GET_DAMAGE(this->entity->data);
     vars->speed = BULLET_DATA_GET_SPEED(this->entity->data);
+    vars->type = BULLET_DATA_GET_TYPE(this->entity->data);
+    
+    this->oam_attribs = spr_init_sprite(11, 0, &sp, OAM_SPR_SIZE_8x8);
+    this->animation = anims_create_animation(&BULLET_LAZER_ANIMATION, this->oam_attribs);
 
     this->velocity.y = -vars->speed << 2;
 }

@@ -5,9 +5,10 @@
 #include "engine/animation/animations.h"
 #include "bullet_types.h"
 
-#define BULLET_DATA(damage, speed) ((damage) | (speed) << 8)
+#define BULLET_DATA(type, damage, speed) ((damage) | (speed) << 7) | (type) << 14
 #define BULLET_DATA_GET_DAMAGE(data) ((data) & 0xff)
-#define BULLET_DATA_GET_SPEED(data) (((data) & 0xff00) >> 8)
+#define BULLET_DATA_GET_SPEED(data) (((data) >> 7) & 0xff)
+#define BULLET_DATA_GET_TYPE(data) (((data) >> 14) & 0xff)
 
 typedef struct
 {

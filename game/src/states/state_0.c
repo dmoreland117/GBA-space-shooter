@@ -75,14 +75,6 @@ void state_0_init()
     entities_init();
 
     RuntimeEntity* e = entities_create_entity(&PLAYER_ENTITY, &(Vec2_uint16){0, 0});
-    entities_create_entity(&ENEMY_ENTITY, &(Vec2_uint16){20, 20});
-    entities_create_entity(&ENEMY_ENTITY, &(Vec2_uint16){40, 20});
-    entities_create_entity(&ENEMY_ENTITY, &(Vec2_uint16){60, 20});
-    entities_create_entity(&ENEMY_ENTITY, &(Vec2_uint16){80, 20});
-    entities_create_entity(&ENEMY_ENTITY, &(Vec2_uint16){100, 20});
-    entities_create_entity(&ENEMY_ENTITY, &(Vec2_uint16){120, 20});
-    entities_create_entity(&ENEMY_ENTITY, &(Vec2_uint16){140, 40});
-    entities_create_entity(&ENEMY_ENTITY, &(Vec2_uint16){160, 60});
 }
 void state_0_update()
 {

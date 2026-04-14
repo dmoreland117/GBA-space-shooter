@@ -5,6 +5,7 @@
 #include "entities/bullet/ent_bullet.h"
 #include "entity_ids.h"
 #include "text_renderer.h"
+#include "save_manager.h"
 
 const AnimationFrame PLAYER_IDLE_ANIM_FRAMES[] = {
     {
@@ -39,6 +40,7 @@ ENTITIES_TABLE EntityData PLAYER_ENTITY = {
 };
 
 char _score_str_buffer[8];
+char _high_score_str_buffer[8];
 
 void player_init(RuntimeEntity* this)
 {
@@ -57,6 +59,11 @@ void player_init(RuntimeEntity* this)
     PlayerVars* pv = (PlayerVars*)this->data;
     pv->health = 100;
     pv->score = 0;
+
+    uint16_t hs = SAVE_DATA->high_score;
+
+    int_to_string(SAVE_DATA->high_score, _high_score_str_buffer);
+    draw_string(&(Vec2_uint8){32 - 7, 2}, _high_score_str_buffer);
 
     this->oam_attribs = spr_init_sprite(1, 0, &sp, OAM_SPR_SIZE_16x16);
     this->animation = anims_create_animation(&PLAYER_IDLE_ANIMATION, this->oam_attribs);
@@ -135,5 +142,10 @@ void player_update(RuntimeEntity* this)
 }
 void player_collide(RuntimeEntity* this, RuntimeEntity* e1)
 {
-    
+    if (e1->id == ENEMY_ID)
+    {
+        PlayerVars* pv = (PlayerVars*)this->data;
+        SAVE_DATA->high_score = pv->score;
+        entities_free_entity(this);
+    }
 }
