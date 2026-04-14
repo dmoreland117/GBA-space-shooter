@@ -126,11 +126,13 @@ void entities_check_collisions()
     {
         RuntimeEntity* a = &_runtime_entities_pool[i];
         if (!(a->flags & RT_ENTITY_FLAG_ACTIVE)) continue;
+        if (!(a->flags & RT_ENTITY_FLAG_COLLISION)) continue;
 
         for (int j = i + 1; j < MAX_LOADED_ENTITIES; j++)
         {
             RuntimeEntity* b = &_runtime_entities_pool[j];
             if (!(b->flags & RT_ENTITY_FLAG_ACTIVE)) continue;
+            if (!(b->flags & RT_ENTITY_FLAG_COLLISION)) continue;
 
             if (entity_collide(a, b))
             {

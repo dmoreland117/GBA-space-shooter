@@ -26,5 +26,6 @@ typedef struct RuntimeEntity
 #define RT_ENTITY_FLAG_PROCESS_UPDATE  BIT(1)
 #define RT_ENTITY_FLAG_PROCESS_PHYSICS BIT(2)
 #define RT_ENTITY_FLAG_DRAW            BIT(3)
+#define RT_ENTITY_FLAG_COLLISION       BIT(4)
 
 #endif // RUNTIME_ENTITY_h
