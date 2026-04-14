@@ -1,15 +1,18 @@
+#include "state_0.h"
+
+#include "memory_sections.h"
+#include "text_renderer.h"
+
+#include "data/space.h"
+#include "data/spritesheet.h"
+#include "data/ds_font.h"
+
 #include "engine/video/backgrounds.h"
 #include "engine/video/palettes.h"
 #include "engine/video/sprites.h"
-#include "states/state_0.h"
 #include "engine/animation/animations.h"
 #include "engine/entity/entities.h"
 #include "engine/input/input.h"
-#include "data/space.h"
-#include "data/spritesheet.h"
-#include "memory_sections.h"
-#include "text_renderer.h"
-#include "data/ds_font.h"
 
 extern const EntityData PLAYER_ENTITY;
 extern const EntityData ENEMY_ENTITY;

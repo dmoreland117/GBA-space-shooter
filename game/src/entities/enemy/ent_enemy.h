@@ -2,7 +2,6 @@
 #define ENT_ENEMY_H
 
 #include "engine/entity/runtime_entity.h"
-#include "engine/animation/animations.h"
 
 #define HEALTH_DEPLETE_MASK 0b10000000
 #define ENEMY_FIRE_INTERVAL 15000

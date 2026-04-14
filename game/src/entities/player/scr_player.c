@@ -1,11 +1,14 @@
-#include "entities/player/scr_player.h"
+#include "scr_player.h"
+#include "../bullet/ent_bullet.h"
+
 #include "memory_sections.h"
-#include "engine/input/input.h"
-#include "engine/entity/entities.h"
-#include "entities/bullet/ent_bullet.h"
 #include "entity_ids.h"
 #include "text_renderer.h"
 #include "save_manager.h"
+
+#include "engine/input/input.h"
+#include "engine/animation/animations.h"
+#include "engine/entity/entities.h"
 
 const AnimationFrame PLAYER_IDLE_ANIM_FRAMES[] = {
     {
@@ -61,7 +64,6 @@ void player_init(RuntimeEntity* this)
     pv->score = 0;
 
     SaveData* sd = load_save();
-
 
     int_to_string(sd->high_score, _high_score_str_buffer);
     draw_string(&(Vec2_uint8){32 - 7, 2}, _high_score_str_buffer);

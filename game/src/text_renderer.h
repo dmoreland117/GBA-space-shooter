@@ -1,11 +1,9 @@
 #if !defined(TEXT_H)
 #define TEXT_H
 
-#include "dsgbalib/types.h"
 #include "engine/math/vectors.h"
 
-#define TEXT_START 512
-#define ASCII_OFFSET 32
+#define ASCII_OFFSET 32  // how many chars into the ascii table our tiles start
 #define FONT_TILESET_SIZE_WORDS 96 * 16
 
 

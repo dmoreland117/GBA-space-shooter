@@ -1,10 +1,12 @@
 #include "text_renderer.h"
+
 #include "engine/video/backgrounds.h"
+
 #include "dsgbalib/gba.h"
 
-uint8_t _charbase;
-uint8_t _mapbase;
-uint8_t _palette;
+EWRAM_BSS uint8_t _charbase;
+EWRAM_BSS uint8_t _mapbase;
+EWRAM_BSS uint8_t _palette;
 
 void text_init(uint8_t bg, uint8_t charbase, uint8_t mapbase, uint8_t palette)
 {

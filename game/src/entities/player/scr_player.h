@@ -2,15 +2,10 @@
 #define SCR_PLAYER_H
 
 #include "engine/entity/runtime_entity.h"
-#include "engine/animation/animations.h"
-
-#define PLAYER_FLAG_JUMPING BIT(7)
-#define PLAYER_FLAG_RUNNING BIT(8)
 
 #define PLAYER_SIZE_X 16
 #define PLAYER_SIZE_Y 16
 
-#define PLAYER_JUMP_VELOCITY 30
 #define PLAYER_MAX_SPEED 300
 #define PLAYER_ACCELERATION 16
 

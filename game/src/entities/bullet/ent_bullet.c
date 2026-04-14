@@ -1,4 +1,4 @@
-#include "entities/bullet/ent_bullet.h"
+#include "ent_bullet.h"
 #include "memory_sections.h"
 #include "engine/input/input.h"
 #include "engine/entity/entities.h"

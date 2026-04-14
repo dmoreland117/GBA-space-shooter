@@ -3,13 +3,17 @@ DEVKITARM = /opt/devkitpro/devkitARM/bin/
 
 RomName = space_shooter
 
-Sources = src src/data src/states src/entities
+EntityDirs = src/entities/player \
+			 src/entities/bullet \
+			 src/entities/enemy \
+
+Sources = src src/data src/states src/entities $(EntityDirs)
 Data 	= data data/image
 
 OutPutDir = build
 DataOutputDir = src/data
 
-Includes = include ../engine/include
+Includes = include ../engine/include src
 
 LibDirs = ../engine/build
 LibFiles = game

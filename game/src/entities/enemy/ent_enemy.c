@@ -1,10 +1,13 @@
-#include "entities/enemy/ent_enemy.h"
-#include "entities/bullet/ent_bullet.h"
-#include "entities/player/scr_player.h"
+#include "ent_enemy.h"
+#include "../bullet/ent_bullet.h"
+#include "../player/scr_player.h"
+
 #include "memory_sections.h"
-#include "engine/input/input.h"
-#include "engine/entity/entities.h"
 #include "entity_ids.h"
+
+#include "engine/input/input.h"
+#include "engine/animation/animations.h"
+#include "engine/entity/entities.h"
 
 const AnimationFrame ENEMY_ANIM_FRAMES[] = {
     {
