@@ -16,7 +16,7 @@ typedef struct EntityVTable
     RuntimeEntityCallbackFn update_callback;
     RuntimeEntityCallbackFn draw_callback;
     RuntimeEntityCollideFn  collide_callback;
-} EntityVTable;
+} EntityVTable; // 20b
 
 typedef struct EntityData
 {
@@ -25,6 +25,6 @@ typedef struct EntityData
     Vec2_uint8    size;     // size used for collisions
     uint16_t      id;       // custom id for later reference
     uint16_t      start_animation_id;
-} EntityData;
+} EntityData; // 32b
 
 #endif // ENTITY_H
