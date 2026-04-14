@@ -60,9 +60,10 @@ void player_init(RuntimeEntity* this)
     pv->health = 100;
     pv->score = 0;
 
-    uint16_t hs = SAVE_DATA->high_score;
+    SaveData* sd = load_save();
 
-    int_to_string(SAVE_DATA->high_score, _high_score_str_buffer);
+
+    int_to_string(sd->high_score, _high_score_str_buffer);
     draw_string(&(Vec2_uint8){32 - 7, 2}, _high_score_str_buffer);
 
     this->oam_attribs = spr_init_sprite(1, 0, &sp, OAM_SPR_SIZE_16x16);
@@ -145,7 +146,12 @@ void player_collide(RuntimeEntity* this, RuntimeEntity* e1)
     if (e1->id == ENEMY_ID)
     {
         PlayerVars* pv = (PlayerVars*)this->data;
-        SAVE_DATA->high_score = pv->score;
+        SaveData sd = {
+            .high_score = pv->score
+        };
+
+        save(&sd);
+
         entities_free_entity(this);
     }
 }

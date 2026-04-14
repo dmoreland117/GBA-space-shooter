@@ -5,7 +5,6 @@
 #include "engine/animation/animations.h"
 #include "engine/entity/entities.h"
 #include "engine/input/input.h"
-#include "data/tileset.h"
 #include "data/space.h"
 #include "data/spritesheet.h"
 #include "memory_sections.h"
@@ -48,7 +47,7 @@ void _check_enemy_spawn_timer()
 
     if ((now - _last_spawn_time) > ENEMY_SPAWN_TIMER_INTERVAL)
     { 
-        entities_create_entity(&ENEMY_ENTITY, &(Vec2_uint16){REG_VCOUNT & 0xFF, 0});
+        entities_create_entity(&ENEMY_ENTITY, &(Vec2_uint16){((REG_VCOUNT * 123123) + 123) & 0x7fff, 0});
         _last_spawn_time = now;
     }
 }
