@@ -1,7 +1,15 @@
 #if !defined(SCR_PLAYER_H)
 #define SCR_PLAYER_H
 
+#include "memory_sections.h"
+#include "entity_ids.h"
+
 #include "engine/entity/runtime_entity.h"
+
+#define PLAYER_PALETTE_SLOT 0
+#define PLAYER_TILES_CHAR_BLOCK 0
+#define PLAYER_TILES_OFFSET 0
+#define PLAYER_TILES_count 20
 
 #define PLAYER_SIZE_X 16
 #define PLAYER_SIZE_Y 16
@@ -18,6 +26,8 @@ typedef struct
     uint16_t score;
 } PlayerVars;
 
+extern const EntityData PLAYER_ENTITY;
+
 void player_init(RuntimeEntity *this);
 void player_destroy(RuntimeEntity *this);
 void player_update(RuntimeEntity *this);
@@ -27,8 +37,5 @@ static inline PlayerVars* get_player_data(RuntimeEntity* entity)
 {
     return (PlayerVars*)entity->data;
 }
-
-extern const EntityVTable SCR_PLAYER_VTABLE;
-extern const EntityData   PLAYER_ENTITY;
 
 #endif // SCR_PLAYER_H

@@ -1,11 +1,15 @@
 #include "state_0.h"
 
+#include "../entities/player/scr_player.h"
+#include "../entities/enemy/ent_enemy.h"
+
 #include "memory_sections.h"
 #include "text_renderer.h"
 
 #include "data/space.h"
-#include "data/spritesheet.h"
 #include "data/ds_font.h"
+#include "data/spritesheet_player_and_ammo.h"
+#include "data/spritesheet_enemy.h"
 
 #include "engine/video/backgrounds.h"
 #include "engine/video/palettes.h"
@@ -13,9 +17,6 @@
 #include "engine/animation/animations.h"
 #include "engine/entity/entities.h"
 #include "engine/input/input.h"
-
-extern const EntityData PLAYER_ENTITY;
-extern const EntityData ENEMY_ENTITY;
 
 STATES_TABLE State START_STATE = {
     .init_callback = state_0_init,
@@ -60,12 +61,15 @@ void state_0_init()
     REG_DISPCNT = 0;
     bg_init(0, 0, 24, 3, false);
 
-    pal_load_sprite_data(spritesheetPal, spritesheetPalLen >> 1, 0);
+    //pal_load_sprite_data(spritesheetPal, spritesheetPalLen >> 1, 0);
+    pal_load_sprite_data_slot(PLAYER_PALETTE_SLOT, spritesheet_player_and_ammoPal, spritesheet_player_and_ammoPalLen  >> 1);
+    pal_load_sprite_data_slot(ENEMY_PALETTE_SLOT, spritesheet_enemyPal, spritesheet_enemyPalLen  >> 1);
     pal_load_bg_data(spacePal, 16, 0);
     pal_load_bg_data_slot(15, FNT_PAL, 2);
     
     bg_load_tiles(spaceTiles, 0, sizeof(spaceTiles) >> 1);
-    spr_load_sprite_data(spritesheetTiles, spritesheetTilesLen >> 1);
+    spr_load_sprite_data(PLAYER_TILES_OFFSET, spritesheet_player_and_ammoTiles, spritesheet_player_and_ammoTilesLen >> 1);
+    spr_load_sprite_data(ENEMY_TILES_OFFSET << 5, spritesheet_enemyTiles, spritesheet_enemyTilesLen >> 1);
     
     bg_load_map(spaceMap, 24, spaceMapLen >> 1);
 

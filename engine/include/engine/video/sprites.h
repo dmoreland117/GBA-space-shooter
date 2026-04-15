@@ -9,7 +9,7 @@ void spr_clear_sprite(OAMSprite* sprite);
 
 OAMSprite* spr_init_sprite(uint8_t tile_id, uint8_t palette_id, Vec2_uint8* pos, uint8_t size);
 
-void spr_load_sprite_data(uint16_t* sprites, uint16_t size);
+void spr_load_sprite_data(uint16_t offset, uint16_t* sprites, uint16_t size);
 
 OAMSprite* spr_get_sprite(uint8_t id);
 
