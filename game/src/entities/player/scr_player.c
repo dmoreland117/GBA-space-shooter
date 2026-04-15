@@ -1,46 +1,14 @@
 #include "scr_player.h"
 #include "../bullet/ent_bullet.h"
 
-#include "memory_sections.h"
-#include "entity_ids.h"
+#include "player_anims.h"
+
 #include "text_renderer.h"
 #include "save_manager.h"
 
 #include "engine/input/input.h"
 #include "engine/animation/animations.h"
 #include "engine/entity/entities.h"
-
-const AnimationFrame PLAYER_IDLE_ANIM_FRAMES[] = {
-    {
-        .tile_id   = 1,
-        .durration = ANIM_FRAME_DURRATION(50)
-    },
-    {
-        .tile_id   = 3,
-        .durration = ANIM_FRAME_DURRATION(50)
-    }
-};
-
-const AniamtionData PLAYER_IDLE_ANIMATION = {
-    .frames = PLAYER_IDLE_ANIM_FRAMES,
-    .frame_count = 2,
-    .tile_offset = 0,
-    .speed_scale = DEFAULT_ANIM_SPEED_SCALE
-};
-
-const EntityVTable SCR_PLAYER_VTABLE = {
-    .init_callback    = player_init,
-    .update_callback  = player_update,
-    .collide_callback = player_collide,
-    .destroy_callback = player_destroy
-};
-
-ENTITIES_TABLE EntityData PLAYER_ENTITY = {
-    .id = PLAYER_ID,
-    .start_animation_id = 0,
-    .vtable             = &SCR_PLAYER_VTABLE,
-    .size               = {16, 16}
-};
 
 char _score_str_buffer[8];
 char _high_score_str_buffer[8];
@@ -51,6 +19,7 @@ void player_init(RuntimeEntity* this)
     this->flags |= RT_ENTITY_FLAG_PROCESS_PHYSICS;
     this->flags |= RT_ENTITY_FLAG_PROCESS_UPDATE;
     this->flags |= RT_ENTITY_FLAG_DRAW;
+    this->flags |= RT_ENTITY_FLAG_COLLISION;
 
     this->screen_position.y = TO_FIX(150 - PLAYER_SIZE_Y);
     this->screen_position.x = TO_FIX((240 >> 1) - PLAYER_SIZE_X);
@@ -69,7 +38,6 @@ void player_init(RuntimeEntity* this)
     draw_string(&(Vec2_uint8){32 - 7, 2}, _high_score_str_buffer);
 
     this->oam_attribs = spr_init_sprite(1, 0, &sp, OAM_SPR_SIZE_16x16);
-    this->animation = anims_create_animation(&PLAYER_IDLE_ANIMATION, this->oam_attribs);
 }
 
 void player_destroy(RuntimeEntity *this)

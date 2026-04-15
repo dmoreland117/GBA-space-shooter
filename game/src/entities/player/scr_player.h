@@ -1,7 +1,15 @@
 #if !defined(SCR_PLAYER_H)
 #define SCR_PLAYER_H
 
+#include "memory_sections.h"
+#include "entity_ids.h"
+
 #include "engine/entity/runtime_entity.h"
+
+#define PLAYER_PALETTE_SLOT 0
+#define PLAYER_TILES_CHAR_BLOCK 0
+#define PLAYER_TILES_OFFSET 0
+#define PLAYER_TILES_count 20
 
 #define PLAYER_SIZE_X 16
 #define PLAYER_SIZE_Y 16
@@ -28,7 +36,18 @@ static inline PlayerVars* get_player_data(RuntimeEntity* entity)
     return (PlayerVars*)entity->data;
 }
 
-extern const EntityVTable SCR_PLAYER_VTABLE;
-extern const EntityData   PLAYER_ENTITY;
+ENTITY_VTABLE(
+    SCR_PLAYER_VTABLE,
+    player_init,
+    player_update,
+    0x00,
+    player_collide,
+    player_destroy
+)
+ENTITY_DATA(
+    PLAYER_ID, PLAYER_ENTITY, SCR_PLAYER_VTABLE,
+    16, 16,
+    0
+)
 
 #endif // SCR_PLAYER_H

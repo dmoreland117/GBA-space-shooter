@@ -27,4 +27,22 @@ typedef struct EntityData
     uint16_t      start_animation_id;
 } EntityData; // 32b
 
+
+#define ENTITY_VTABLE(name, init, update, draw, collide, destroy) \
+static const EntityVTable name = { \
+    .init_callback    = (init), \       
+    .update_callback  = (update), \     
+    .collide_callback = (collide), \        
+    .destroy_callback = (destroy), \        
+    .draw_callback    = (draw) \        
+};
+
+#define ENTITY_DATA(ent_id, name, vtable_name, sx, sy, ent_data) \
+    static const EntityData name = { \
+        .id                 = (ent_id), \
+        .vtable             = &(vtable_name), \
+        .size               = {(sx), (sy)}, \
+        .data               = (ent_data) \
+    };
+
 #endif // ENTITY_H

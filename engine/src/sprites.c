@@ -30,9 +30,9 @@ void spr_clear_sprite(OAMSprite* sprite)
     sprite->attr2 = 0;
     sprite->attr3 = 0;
 }
-void spr_load_sprite_data(uint16_t *sprites, uint16_t size)
+void spr_load_sprite_data(uint16_t offset, uint16_t *sprites, uint16_t size)
 {
-    DMA3CPY(sprites, SPRITES, size);
+    DMA3CPY(sprites, &SPRITES[offset >> 1], size);
 }
 OAMSprite *spr_get_sprite(uint8_t id)
 {

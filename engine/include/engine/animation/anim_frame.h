@@ -6,7 +6,7 @@
 typedef struct
 {
     uint16_t tile_id;
-    uint16_t durration; // this time will be bit shifted left one byte
+    uint16_t duration; // this time will be bit shifted left one byte
 } AnimationFrame;
 
 #define ANIM_FRAME_DURRATION(d) TO_FIX((d))
