@@ -36,8 +36,16 @@ void draw_string(Vec2_uint8 *pos, char * string)
         offset++;
         c = string[offset];
     }
-    
+}
 
+void text_clear()
+{
+    uint16_t* mapbase = SCREEN_BASE_BLOCK(_mapbase);
+    for (uint16_t i = 0; i < 256 * 32; i++)
+    {
+        mapbase[i] = 0;
+    }
+    
 }
 
 void int_to_string(uint32_t value, char *buffer)

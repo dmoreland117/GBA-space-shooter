@@ -47,6 +47,7 @@ void player_init(RuntimeEntity* this)
     draw_string(&(Vec2_uint8){32 - 7, 2}, _high_score_str_buffer);
 
     draw_string(&(Vec2_uint8){30 - 8, 20 - 2}, BULLET_NAMES[_selected_bullet]);
+    draw_string(&(Vec2_uint8){1 - 8, 20 - 2}, BULLET_NAMES[_selected_bullet]);
 }
 
 void player_destroy(RuntimeEntity *this)
