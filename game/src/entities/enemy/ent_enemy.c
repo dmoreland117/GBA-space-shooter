@@ -42,9 +42,7 @@ void enemy_init(RuntimeEntity* this)
     sp.y = FROM_FIX(this->screen_position.y);
     
     this->oam_attribs = spr_init_sprite(ENEMY_TILES_OFFSET, ENEMY_PALETTE_SLOT, &sp, OAM_SPR_SIZE_16x16);
-    this->animation = anims_create_animation(&ENEMY_IDLE_ANIMATION, this->oam_attribs);
-    RT_ANIM_SET_FLIP_Y(this->animation);
-
+    spr_flip_v(this->oam_attribs, true);
     
     EnemyVars* vars = (EnemyVars*)this->data;
     vars->health = 100;
@@ -72,3 +70,16 @@ void enemy_collide(RuntimeEntity* this, RuntimeEntity* that)
     }
 }
 
+ENTITY_VTABLE(
+    ENEMY_VTABLE,
+    enemy_init,
+    enemy_update,
+    0x00,
+    enemy_collide,
+    enemy_destroy
+)
+ENTITY_DATA(
+    ENEMY_ID, ENEMY_ENTITY, ENEMY_VTABLE,
+    16, 16,
+    0
+)

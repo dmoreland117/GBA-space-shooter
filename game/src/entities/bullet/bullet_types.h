@@ -5,6 +5,7 @@ typedef enum
 {
     BULLET_TYPE_LAZER,
     BULLET_TYPE_PLAZMA,
+    BULLET_TYPE_MISSILE,
 } BulletType;
 
 #endif // BULLET_TYPES_H

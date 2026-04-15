@@ -11,7 +11,7 @@ bool input_is_key_pressed(uint16_t key)
 
 bool input_is_key_just_pressed(uint16_t key)
 {
-    return (_current_keys & key) &! (_last_keys & key);
+    return (_current_keys & key) && !(_last_keys & key);
 }
 
 bool input_is_key_released(uint16_t key)

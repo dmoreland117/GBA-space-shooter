@@ -10,8 +10,28 @@
 #include "engine/animation/animations.h"
 #include "engine/entity/entities.h"
 
-char _score_str_buffer[8];
-char _high_score_str_buffer[8];
+extern const EntityData BULLET_LAZER_ENTITY;
+extern const EntityData BULLET_PLAZMA_ENTITY;
+extern const EntityData BULLET_MISSILE_ENTITY;
+
+const char* const BULLET_NAMES[] = {
+    "LAZER",
+    "PLAZMA",
+    "MISSILE"
+};
+const EntityData* const BULLET_ENTITIES[] = {
+    &BULLET_LAZER_ENTITY,
+    &BULLET_PLAZMA_ENTITY,
+    &BULLET_MISSILE_ENTITY,
+};
+
+EWRAM_BSS char _score_str_buffer[8];
+EWRAM_BSS char _high_score_str_buffer[8];
+EWRAM_BSS char _selected_bullet_str_buffer[8];
+
+EWRAM_BSS uint8_t _selected_bullet;
+
+
 
 void player_init(RuntimeEntity* this)
 {
@@ -37,6 +57,10 @@ void player_init(RuntimeEntity* this)
     int_to_string(sd->high_score, _high_score_str_buffer);
     draw_string(&(Vec2_uint8){32 - 7, 2}, _high_score_str_buffer);
 
+    _selected_bullet = 0;
+
+    draw_string(&(Vec2_uint8){30 - 8, 20 - 2}, BULLET_NAMES[_selected_bullet]);
+
     this->oam_attribs = spr_init_sprite(1, 0, &sp, OAM_SPR_SIZE_16x16);
 }
 
@@ -61,15 +85,27 @@ void player_update(RuntimeEntity* this)
         moving = true;
         this->velocity.x -= PLAYER_ACCELERATION;
     }
+    if (input_is_key_just_pressed(KEY_B))
+    {
+        _selected_bullet++;
+
+        if (_selected_bullet >= 3)
+        {
+            _selected_bullet = 0;
+        }
+
+        draw_string(&(Vec2_uint8){30 - 12, 20 - 2}, "         ");
+        draw_string(&(Vec2_uint8){30 - 8, 20 - 2}, BULLET_NAMES[_selected_bullet]);
+    }
     if (input_is_key_just_pressed(KEY_A))
     {
         Vec2_uint16 p;
         p.x = FROM_FIX(this->screen_position.x);
         p.y = FROM_FIX(this->screen_position.y);
         
-        entities_create_entity(&BULLET_ENTITY, &p);
+        entities_create_entity(BULLET_ENTITIES[_selected_bullet], &p);
     }
-
+    
     // --- FRICTION ---
     if (!moving)
     {
@@ -125,3 +161,17 @@ void player_collide(RuntimeEntity* this, RuntimeEntity* e1)
         entities_free_entity(this);
     }
 }
+
+ENTITY_VTABLE(
+    SCR_PLAYER_VTABLE,
+    player_init,
+    player_update,
+    0x00,
+    player_collide,
+    player_destroy
+)
+ENTITY_DATA(
+    PLAYER_ID, PLAYER_ENTITY, SCR_PLAYER_VTABLE,
+    16, 16,
+    0
+)

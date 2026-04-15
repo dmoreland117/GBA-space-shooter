@@ -8,7 +8,7 @@
 //	+ 64 tiles not compressed
 //	Total size: 2048 = 2048
 //
-//	Time-stamp: 2026-04-13, 13:50:03
+//	Time-stamp: 2026-04-15, 12:55:26
 //	Exported by Cearn's GBA Image Transmogrifier, v0.9.2
 //	( http://www.coranac.com/projects/#grit )
 //

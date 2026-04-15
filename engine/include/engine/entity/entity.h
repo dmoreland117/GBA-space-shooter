@@ -29,7 +29,7 @@ typedef struct EntityData
 
 
 #define ENTITY_VTABLE(name, init, update, draw, collide, destroy) \
-static const EntityVTable name = { \
+const EntityVTable name = { \
     .init_callback    = (init), \       
     .update_callback  = (update), \     
     .collide_callback = (collide), \        
@@ -38,7 +38,7 @@ static const EntityVTable name = { \
 };
 
 #define ENTITY_DATA(ent_id, name, vtable_name, sx, sy, ent_data) \
-    static const EntityData name = { \
+    const EntityData name = { \
         .id                 = (ent_id), \
         .vtable             = &(vtable_name), \
         .size               = {(sx), (sy)}, \

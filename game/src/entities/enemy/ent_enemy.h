@@ -18,23 +18,13 @@ typedef struct
     uint8_t health;
 } EnemyVars;
 
+extern const EntityData ENEMY_ENTITY;
+
 void enemy_init(RuntimeEntity *this);
 void enemy_destroy(RuntimeEntity *this);
 void enemy_update(RuntimeEntity *this);
 void enemy_collide(RuntimeEntity *this, RuntimeEntity *collider);
 
-ENTITY_VTABLE(
-    ENEMY_VTABLE,
-    enemy_init,
-    enemy_update,
-    0x00,
-    enemy_collide,
-    enemy_destroy
-)
-ENTITY_DATA(
-    ENEMY_ID, ENEMY_ENTITY, ENEMY_VTABLE,
-    16, 16,
-    0
-)
+
 
 #endif // ENT_ENEMY_H

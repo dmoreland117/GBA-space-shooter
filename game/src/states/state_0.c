@@ -7,7 +7,6 @@
 #include "text_renderer.h"
 
 #include "data/space.h"
-#include "data/spritesheet.h"
 #include "data/ds_font.h"
 #include "data/spritesheet_player_and_ammo.h"
 #include "data/spritesheet_enemy.h"

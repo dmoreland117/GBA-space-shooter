@@ -26,6 +26,8 @@ typedef struct
     uint16_t score;
 } PlayerVars;
 
+extern const EntityData PLAYER_ENTITY;
+
 void player_init(RuntimeEntity *this);
 void player_destroy(RuntimeEntity *this);
 void player_update(RuntimeEntity *this);
@@ -35,19 +37,5 @@ static inline PlayerVars* get_player_data(RuntimeEntity* entity)
 {
     return (PlayerVars*)entity->data;
 }
-
-ENTITY_VTABLE(
-    SCR_PLAYER_VTABLE,
-    player_init,
-    player_update,
-    0x00,
-    player_collide,
-    player_destroy
-)
-ENTITY_DATA(
-    PLAYER_ID, PLAYER_ENTITY, SCR_PLAYER_VTABLE,
-    16, 16,
-    0
-)
 
 #endif // SCR_PLAYER_H

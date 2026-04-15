@@ -5,6 +5,8 @@
 #include "engine/input/input.h"
 #include "engine/entity/entities.h"
 
+
+
 void bullet_init(RuntimeEntity* this)
 {
     this->flags |= RT_ENTITY_FLAG_DRAW;
@@ -23,8 +25,23 @@ void bullet_init(RuntimeEntity* this)
     vars->speed = BULLET_DATA_GET_SPEED(this->entity->data);
     vars->type = BULLET_DATA_GET_TYPE(this->entity->data);
     
-    this->oam_attribs = spr_init_sprite(11, 0, &sp, OAM_SPR_SIZE_8x8);
-    this->animation = anims_create_animation(&BULLET_MISSILE_ANIMATION, this->oam_attribs);
+    this->oam_attribs = spr_init_sprite(0, 0, &sp, OAM_SPR_SIZE_8x8);
+    
+    switch (vars->type)
+    {
+    case BULLET_TYPE_LAZER:
+        this->animation = anims_create_animation(&BULLET_LAZER_ANIMATION, this->oam_attribs);
+        break;
+    case BULLET_TYPE_PLAZMA:
+        this->animation = anims_create_animation(&BULLET_PLAZMA_ANIMATION, this->oam_attribs);
+        break;
+    case BULLET_TYPE_MISSILE:
+        this->animation = anims_create_animation(&BULLET_MISSILE_ANIMATION, this->oam_attribs);
+        break;
+    
+    default:
+        break;
+    }
 
     this->velocity.y = -vars->speed << 2;
 }
@@ -53,3 +70,28 @@ BulletVars *get_bullet_data(RuntimeEntity *entity)
 {
     return (BulletVars*)entity->data;
 }
+
+ENTITY_VTABLE(
+    BULLET_VTABLE,
+    bullet_init,
+    bullet_update,
+    0x00,
+    bullet_collide,
+    bullet_destroy
+)
+
+ENTITY_DATA(
+    BULLET_ID, BULLET_LAZER_ENTITY, BULLET_VTABLE, 
+    16, 16, 
+    BULLET_DATA(BULLET_TYPE_LAZER, 24, 200)
+)
+ENTITY_DATA(
+    BULLET_ID, BULLET_PLAZMA_ENTITY, BULLET_VTABLE, 
+    16, 16, 
+    BULLET_DATA(BULLET_TYPE_PLAZMA, 36, 120)
+)
+ENTITY_DATA(
+    BULLET_ID, BULLET_MISSILE_ENTITY, BULLET_VTABLE, 
+    16, 16, 
+    BULLET_DATA(BULLET_TYPE_MISSILE, 55, 90)
+)

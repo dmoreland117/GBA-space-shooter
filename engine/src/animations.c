@@ -48,7 +48,8 @@ RuntimeAnimation *anims_create_animation(AniamtionData* animation, OAMSprite* sp
             current_anim->flags |= RT_ANIM_FLAG_LOOPING;
 
         current_anim->sprite = sprite;
-        
+        spr_update_sprite_tile(sprite, animation->frames[0].tile_id + animation->tile_offset);
+
         return current_anim;
     }
 
@@ -69,7 +70,7 @@ void anims_update()
 
         uint16_t new_frame_time = current_anim->current_frame_timer + current_anim->animation_data->speed_scale;
         AnimationFrame* current_frame = &current_anim->animation_data->frames[current_anim->current_frame];
-        if(new_frame_time > current_frame->durration)
+        if(new_frame_time > current_frame->duration)
         {
             _increment_frame(current_anim);
             new_frame_time = 0;
