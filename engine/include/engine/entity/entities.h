@@ -20,4 +20,13 @@ RuntimeEntity* get_runtime_entities_pool();
 /// @return the first entity with id 0
 RuntimeEntity* entities_get_player();
 
+static inline void entities_set_flags(RuntimeEntity* entity, uint16_t flags)
+{
+    entity->flags |= flags;
+}
+static inline void entities_clear_flags(RuntimeEntity* entity, uint16_t flags)
+{
+    entity->flags &= ~flags;
+}
+
 #endif // ENTITIES_H
