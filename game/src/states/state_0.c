@@ -18,13 +18,13 @@
 #include "engine/entity/entities.h"
 #include "engine/input/input.h"
 
-STATES_TABLE State START_STATE = {
+STATES_TABLE State LEVEL_STATE = {
     .init_callback = state_0_init,
     .update_callback = state_0_update,
     .draw_callback = state_0_draw
 };
 
-const uint16_t FNT_PAL[] = 
+const uint16_t FNT_PALL[] = 
 {
     RGB15(0, 0, 0),
     RGB15(31, 40, 40)
@@ -65,7 +65,7 @@ void state_0_init()
     pal_load_sprite_data_slot(PLAYER_PALETTE_SLOT, spritesheet_player_and_ammoPal, spritesheet_player_and_ammoPalLen  >> 1);
     pal_load_sprite_data_slot(ENEMY_PALETTE_SLOT, spritesheet_enemyPal, spritesheet_enemyPalLen  >> 1);
     pal_load_bg_data(spacePal, 16, 0);
-    pal_load_bg_data_slot(15, FNT_PAL, 2);
+    pal_load_bg_data_slot(15, FNT_PALL, 2);
     
     bg_load_tiles(spaceTiles, 0, sizeof(spaceTiles) >> 1);
     spr_load_sprite_data(PLAYER_TILES_OFFSET, spritesheet_player_and_ammoTiles, spritesheet_player_and_ammoTilesLen >> 1);
