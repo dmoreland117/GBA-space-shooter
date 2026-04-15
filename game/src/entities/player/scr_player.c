@@ -10,36 +10,21 @@
 #include "engine/animation/animations.h"
 #include "engine/entity/entities.h"
 
-extern const EntityData BULLET_LAZER_ENTITY;
-extern const EntityData BULLET_PLAZMA_ENTITY;
-extern const EntityData BULLET_MISSILE_ENTITY;
-
-const char* const BULLET_NAMES[] = {
-    "LAZER",
-    "PLAZMA",
-    "MISSILE"
-};
-const EntityData* const BULLET_ENTITIES[] = {
-    &BULLET_LAZER_ENTITY,
-    &BULLET_PLAZMA_ENTITY,
-    &BULLET_MISSILE_ENTITY,
-};
-
 EWRAM_BSS char _score_str_buffer[8];
 EWRAM_BSS char _high_score_str_buffer[8];
-EWRAM_BSS char _selected_bullet_str_buffer[8];
 
 EWRAM_BSS uint8_t _selected_bullet;
 
-
-
 void player_init(RuntimeEntity* this)
 {
-    this->flags |= RT_ENTITY_FLAG_DRAW;
-    this->flags |= RT_ENTITY_FLAG_PROCESS_PHYSICS;
-    this->flags |= RT_ENTITY_FLAG_PROCESS_UPDATE;
-    this->flags |= RT_ENTITY_FLAG_DRAW;
-    this->flags |= RT_ENTITY_FLAG_COLLISION;
+    entities_set_flags(
+        this, 
+        RT_ENTITY_FLAG_DRAW | 
+        RT_ENTITY_FLAG_PROCESS_PHYSICS | 
+        RT_ENTITY_FLAG_PROCESS_UPDATE | 
+        RT_ENTITY_FLAG_DRAW | 
+        RT_ENTITY_FLAG_COLLISION
+    );
 
     this->screen_position.y = TO_FIX(150 - PLAYER_SIZE_Y);
     this->screen_position.x = TO_FIX((240 >> 1) - PLAYER_SIZE_X);
@@ -48,20 +33,20 @@ void player_init(RuntimeEntity* this)
     sp.x = FROM_FIX(this->screen_position.x);
     sp.y = FROM_FIX(this->screen_position.y);
     
+    this->oam_attribs = spr_init_sprite(1, 0, &sp, OAM_SPR_SIZE_16x16);
+    
     PlayerVars* pv = (PlayerVars*)this->data;
     pv->health = 100;
     pv->score = 0;
 
+    _selected_bullet = 0;
+    
     SaveData* sd = load_save();
 
     int_to_string(sd->high_score, _high_score_str_buffer);
     draw_string(&(Vec2_uint8){32 - 7, 2}, _high_score_str_buffer);
 
-    _selected_bullet = 0;
-
     draw_string(&(Vec2_uint8){30 - 8, 20 - 2}, BULLET_NAMES[_selected_bullet]);
-
-    this->oam_attribs = spr_init_sprite(1, 0, &sp, OAM_SPR_SIZE_16x16);
 }
 
 void player_destroy(RuntimeEntity *this)
@@ -172,6 +157,6 @@ ENTITY_VTABLE(
 )
 ENTITY_DATA(
     PLAYER_ID, PLAYER_ENTITY, SCR_PLAYER_VTABLE,
-    16, 16,
+    PLAYER_SIZE_X, PLAYER_SIZE_Y,
     0
 )

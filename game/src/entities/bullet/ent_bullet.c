@@ -5,7 +5,16 @@
 #include "engine/input/input.h"
 #include "engine/entity/entities.h"
 
-
+const char* const BULLET_NAMES[] = {
+    "LAZER",
+    "PLAZMA",
+    "MISSILE"
+};
+const EntityData* const BULLET_ENTITIES[] = {
+    &BULLET_LAZER_ENTITY,
+    &BULLET_PLAZMA_ENTITY,
+    &BULLET_MISSILE_ENTITY,
+};
 
 void bullet_init(RuntimeEntity* this)
 {

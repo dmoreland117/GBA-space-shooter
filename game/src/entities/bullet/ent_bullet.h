@@ -13,6 +13,13 @@
 #define BULLET_DATA_GET_SPEED(data) (((data) >> 8) & 0xff)
 #define BULLET_DATA_GET_TYPE(data) (((data) >> 16) & 0xff)
 
+extern const EntityData BULLET_LAZER_ENTITY;
+extern const EntityData BULLET_PLAZMA_ENTITY;
+extern const EntityData BULLET_MISSILE_ENTITY;
+
+extern const char* const BULLET_NAMES[];
+extern const EntityData* const BULLET_ENTITIES[];
+
 typedef struct
 {
     uint8_t damage;
