@@ -10,10 +10,19 @@
 #include "engine/animation/animations.h"
 #include "engine/entity/entities.h"
 
-EWRAM_BSS char _score_str_buffer[8];
+typedef enum PlayerDirection
+{
+    PD_NONE,
+    PD_LEFT,
+    PD_RIGHT
+} PlayerDirection;
+
+IWRAM_BSS char _score_str_buffer[8];
 EWRAM_BSS char _high_score_str_buffer[8];
 
-EWRAM_BSS uint8_t _selected_bullet;
+IWRAM_BSS uint8_t _selected_bullet;
+
+IWRAM_BSS PlayerDirection _last_direction;
 
 void player_init(RuntimeEntity* this)
 {
@@ -52,7 +61,7 @@ void player_init(RuntimeEntity* this)
 
 void player_destroy(RuntimeEntity *this)
 {
-
+    text_clear();
 }
 
 void player_update(RuntimeEntity* this)
@@ -64,12 +73,24 @@ void player_update(RuntimeEntity* this)
     {
         moving = true;
         this->velocity.x += PLAYER_ACCELERATION;
+        if (_last_direction != PD_RIGHT)
+        {
+            spr_update_sprite_tile(this->oam_attribs, PLAYER_LEFT_TILE);
+            spr_flip_h(this->oam_attribs, 1);
+            _last_direction = PD_RIGHT;
+        }
     }
 
     if (input_is_key_pressed(KEY_LEFT))
     {
         moving = true;
         this->velocity.x -= PLAYER_ACCELERATION;
+        if (_last_direction != PD_LEFT)
+        {
+            spr_update_sprite_tile(this->oam_attribs, PLAYER_LEFT_TILE);
+            spr_flip_h(this->oam_attribs, 0);
+            _last_direction = PD_LEFT;
+        }
     }
     if (input_is_key_just_pressed(KEY_B))
     {
@@ -80,8 +101,12 @@ void player_update(RuntimeEntity* this)
             _selected_bullet = 0;
         }
 
-        draw_string(&(Vec2_uint8){30 - 12, 20 - 2}, "         ");
-        draw_string(&(Vec2_uint8){30 - 8, 20 - 2}, BULLET_NAMES[_selected_bullet]);
+        Vec2_uint8 string_pos;
+        string_pos.x = 30 - 8;
+        string_pos.y = 20 - 2;
+
+        draw_string(&string_pos, "         ");
+        draw_string(&string_pos, BULLET_NAMES[_selected_bullet]);
     }
     if (input_is_key_just_pressed(KEY_A))
     {
@@ -106,6 +131,13 @@ void player_update(RuntimeEntity* this)
             this->velocity.x += PLAYER_ACCELERATION;
             if (this->velocity.x > 0)
                 this->velocity.x = 0;
+        }
+
+        if ( _last_direction != PD_NONE)
+        {
+            spr_update_sprite_tile(this->oam_attribs, 1);
+            spr_flip_h(this->oam_attribs, 0);
+            _last_direction = PD_NONE;
         }
     }
 
@@ -133,6 +165,12 @@ void player_update(RuntimeEntity* this)
 
     draw_string(&(Vec2_uint8){32 - 7, 1}, _score_str_buffer);
 }
+
+void draw(RuntimeEntity* this)
+{
+
+}
+
 void player_collide(RuntimeEntity* this, RuntimeEntity* e1)
 {
     if (e1->id == ENEMY_ID)
