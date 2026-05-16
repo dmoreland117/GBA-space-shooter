@@ -7,9 +7,20 @@
 
 #define SRAM ((volatile uint8_t*) SAVE_START)
 
+#define MAX_SCORES 6
+#define MAX_PLAYER_NAME_LENGTH 16
+
+typedef struct
+{
+    uint8_t score;
+    char player_name[MAX_PLAYER_NAME_LENGTH];
+} ScoreData;
+
 typedef struct 
 {
-    uint16_t high_score;
+    ScoreData scores[MAX_SCORES];
+    uint8_t  scores_count;
+
 } SaveData;
 
 SaveData current_data;
